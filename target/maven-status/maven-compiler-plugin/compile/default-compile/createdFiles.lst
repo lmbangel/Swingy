@@ -1,0 +1,11 @@
+controller/Main.class
+model/artifacts/Armor.class
+model/CharactorClass.class
+model/Map.class
+controller/HeroFactory.class
+model/artifacts/Artifact.class
+model/artifacts/Weapon.class
+model/HeroBuilder.class
+model/artifacts/Helm.class
+controller/Hero.class
+model/Levels.class
