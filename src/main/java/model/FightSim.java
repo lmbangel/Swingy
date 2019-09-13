@@ -5,10 +5,6 @@ import java.util.Random;
 public class FightSim {
 
     public static void fighting(int heroPower, int enemyPower, String enemyClass){
-//        int dev = (heroPower + enemyPower) / 2;
-//        int perc = (dev / 100) * 70;
-//        int hero = heroPower - perc;
-//        int enemy = enemyPower - perc;
 
         Random luckDraw = new Random();
         int n = luckDraw.nextInt(57);

@@ -51,6 +51,7 @@ public class Enemy  {
 
     public Power getFullStrength(){ return  this.fullStrength; }
     public Power getPower(){ return this.power;}
+    public String getName(){ return this.name;}
 //    public int getAttack(){ return this.attack; }
 //    public int getDefense(){ return this.defense; }
     public int getXp(){ return  this.xp; }

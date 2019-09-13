@@ -31,6 +31,7 @@ public class Choose {
         while (choice == 0)
         {
             try {
+
                 int heroClass = Integer.parseInt(input.nextLine());
                 if ( heroClass == 1 || heroClass == 2 || heroClass == 3 )
                     choice = heroClass;

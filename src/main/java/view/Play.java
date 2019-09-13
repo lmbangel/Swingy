@@ -1,5 +1,6 @@
 package view;
 
+import controller.enemy.Enemy;
 import controller.hero.Hero;
 
 import java.util.Scanner;
@@ -8,40 +9,48 @@ import java.util.Scanner;
 public class Play {
 
     Scanner input = new Scanner(System.in);
-    private Choose chooseClass;
-    private PlayGame playGame;
-    private MapField mapField;
+    public Choose chooseClass;
+    public PlayGame playGame;
+    public MapField mapField;
+    int heroClass;
+    int heroArmor;
+    int heroWeapon;
+    int heroHelm;
+    public Hero hero;
 
     public Play(){ }
 
-    public void beginGame() {
-        System.out.println("____________________________ WELCOME ____________________________\n" +
-                "\n             Enter 1. to START | Enter 2. to CONTINUE" +
-                "\n             _________________________________________\n" +
-                "\n1.START GAME - New character" +
-                "\n2.CONTINUE   - Use saved character" +
-                "\n"
-        );
-/* ________________________________________________________________ */
-        int choice = 0;
-        while (choice == 0)
-        {
-            try {
-                int play = Integer.parseInt(input.nextLine());
-                if (play == 1 || play == 2)
-                    choice = play;
-                else
-                    System.out.println("PLEASE ENTER NUMBERS 1 OR 2 TO CHOOSE BETWEEN START AND CONTINUE!!!");
-            } catch (Exception err) {
-                System.out.println("ERROR CODE FOR YOUR ASS!: " + err + "\n" + "PLEASE ENTER NUMBERS 1 OR 2 TO CHOOSE BETWEEN START AND CONTINUE!!!");
+    public void beginGame(int lvl) {
+        if (lvl == 0) {
+            System.out.println("____________________________ WELCOME ____________________________\n" +
+                    "\n             Enter 1. to START | Enter 2. to CONTINUE" +
+                    "\n             _________________________________________\n" +
+                    "\n1.START GAME - New character" +
+                    "\n2.CONTINUE   - Use saved character" +
+                    "\n"
+            );
+            /* ________________________________________________________________ */
+            int choice = 0;
+            while (choice == 0) {
+                try {
+
+                    int play = Integer.parseInt(input.nextLine());
+                    if (play == 1 || play == 2)
+                        choice = play;
+                    else
+                        System.out.println("PLEASE ENTER NUMBERS 1 OR 2 TO CHOOSE BETWEEN START AND CONTINUE!!!");
+                } catch (Exception err) {
+                    System.out.println("ERROR CODE FOR YOUR ASS!: " + err + "\n" + "PLEASE ENTER NUMBERS 1 OR 2 TO CHOOSE BETWEEN START AND CONTINUE!!!");
+                }
             }
+            selectHero(choice);
         }
-        selectHero(choice);
         displayStats(playGame.getHero());
+        hero = playGame.getHero();
 //        playGame.updateValues(2000);
-        displayStats(playGame.getHero());
+//        displayStats(playGame.getHero());
         System.out.println("\n");
-        mapField = new MapField();
+        mapField = new MapField(playGame);
         mapField.createMap(playGame.getHero().getHeroLevel());
         mapField.map();
 //        System.out.println("\n" + mapField.getMapSize() + "\n" + ((mapField.getMapSize()) / 2 + "\n"));
@@ -64,12 +73,12 @@ public class Play {
                 "\n             ______________________________\n");
         String name = input.nextLine();
         chooseClass = new Choose();
-        int heroClass = chooseClass.choice();
-        int heroArmor = chooseClass.armorChoice();
-        int heroWeapon = chooseClass.weaponChoice();
-        int heroHelm = chooseClass.helmChoice();
+        heroClass = chooseClass.choice();
+        heroArmor = chooseClass.armorChoice();
+        heroWeapon = chooseClass.weaponChoice();
+        heroHelm = chooseClass.helmChoice();
 
-        playGame = new PlayGame();
+        playGame = new PlayGame(this);
         playGame.createNewHero(name, heroClass, heroArmor, heroWeapon, heroHelm );
 
     }
@@ -99,6 +108,16 @@ public class Play {
                 "att:       "+hero.getFullStrength().getAttack()+
                 "\ndef:       "+hero.getFullStrength().getDefence()+
                 "\nhp:        "+hero.getFullStrength().getHitPoints()
+        );
+    }
+    public void displayEnemyStats(Enemy enemy){
+        System.out.println("            ENEMY STATS\n_____________________________________"+
+                "\nName:        "+enemy.getName()+
+                "\nAttack:       "+enemy.getFullStrength().getAttack()+
+                "\nDef:       "+enemy.getFullStrength().getDefence()+
+                "\nHP:          "+enemy.getFullStrength().getHitPoints()+
+                "\nXP:      "+enemy.getXp()
+
         );
     }
 }

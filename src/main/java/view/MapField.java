@@ -1,21 +1,16 @@
 package view;
 
 import controller.enemy.Enemy;
-import controller.hero.Hero;
-import model.Power;
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 import java.util.Random;
 import java.util.Scanner;
 
-import static javafx.application.Platform.exit;
-
 /* __________________________________________ LMBANGEL ________________________________________ */
 public class MapField {
-
-    Hero hero;
-    Enemy enemy;
-    int difference;
+    public Enemy enemy;
+    public Play gamePlay = new Play();
+    private PlayGame playGame;
+    int damage;
     public int mapSize;
     public Random random = new Random();
     public int[][] map;
@@ -24,12 +19,16 @@ public class MapField {
     public int mapCenterY = getMapSize()/2;
     public int mapCenterX = getMapSize()/2;
 
-    MapField(){}
+
+    MapField(PlayGame playGame){
+        this.playGame = playGame;
+    }
 
     public int getMapSize(){ return this.mapSize; }
     public void setMapSize(int mapSize){ this.mapSize = mapSize; }
 
-    public int[][] createMap(int heroLevel){
+    public int[][] createMap(int heroLevel)
+    {
 
         this.mapSize = (heroLevel - 1) * 5 + 10 - (heroLevel % 2);
         map = new int[this.mapSize][this.mapSize];
@@ -38,14 +37,19 @@ public class MapField {
     }
 
 
-    public void map() {
-        for (x = 0; x < this.mapSize; x++) {
-            for (y = 0; y < this.mapSize; y++) {
+    public void map()
+    {
+        for (x = 0; x < this.mapSize; x++)
+        {
+            for (y = 0; y < this.mapSize; y++)
+            {
                 int num = random.nextInt(51);
-                if (num % 2 == 0 && (x != (getMapSize()/2) && y != getMapSize()/2)) {
+                if (num % 2 == 0 && (x != (getMapSize()/2) && y != getMapSize()/2))
+                {
                     map[x][y] = 1;
                     System.out.print("\033[31;1m" + map[x][y] + " \033[31;0m");
-                } else if (x == (getMapSize()/2) && y == (getMapSize()/2)) {
+                } else if (x == (getMapSize()/2) && y == (getMapSize()/2))
+                {
                     map[x][y] = 7;
                     System.out.print("\033[34;1m" + map[x][y] + " \033[34;0m");
                 }
@@ -59,24 +63,25 @@ public class MapField {
     }
 
 
-    public void moveInMap(int i, int j){
-        for (int x = 0; x < this.mapSize; x++) {
-            for (int y = 0; y < this.mapSize; y++) {
-                if (map[i][j] == 0 || map[i][j] == 7 ){
-                    try {
-                        move(i, j);
-                    }catch (Exception err){
-                        System.out.println(err);
-                        System.out.println("END OF MAP....YOU HAVE PASSED THIS LEVEL, NOW ON TO THE NEXT ONE");
-                        //NEXT LEVEL ......
-                        break;
-                    }
+    public void moveInMap(int i, int j)
+    {
+        for (int x = 0; x < this.mapSize; x++)
+        {
+            for (int y = 0; y < this.mapSize; y++)
+            {
+                if (map[i][j] == 0 || map[i][j] == 7 )
+                {
+                    move(i, j);
+                }
+                else if(map[i][j] == 1)
+                {
+                    System.out.println("YOU HAVE MET AN ENEMY, DO YOU WISH TO FIGHT OR RUN\n");
+                    System.out.println("The enemy you have met has the following Stats:\n ");
+//                    System.out.println(hero.getHeroLevel());
 
+//                    gamePlay.displayEnemyStats(enemy.enemy(playGame.getHero().getHeroLevel()));
+                    System.out.println("1.RUN"+ "\n2.FIGHT");
 
-                } else if(map[i][j] == 1) {
-                    System.out.println("YOU HAVE MET AN ENEMY, DO YOU WISH TO FIGHT OR RUN"+
-                            "\n1.RUN"+
-                            "\n2.FIGHT");
                     int choice = 0;
                     while (choice == 0)
                     {
@@ -86,22 +91,26 @@ public class MapField {
                                 choice = play;
                             else
                                 System.out.println("PLEASE ENTER NUMBERS 1 OR 2 TO CHOOSE BETWEEN RUN AND FIGHT!!!");
-                        } catch (Exception err) {
+                        } catch (Exception err)
+                        {
                             System.out.println("ERROR CODE FOR YOUR ASS!: " + err + "\n" + "PLEASE ENTER NUMBERS 1 OR 2 TO CHOOSE BETWEEN RUN AND FIGHT!!!");
                         }
                     }
-                    if (choice == 2) {
-                        fight();
-                    }else{
-                        move(i, j);
+                    if (choice == 2)
+                    {
+                        System.out.println("11111111111111111");
+                        playGame.fight();
                     }
+                    else
+                        {
+                        move(i, j);
+                        }
                 }
-                else
-                    System.out.println("END OF MAP");
             }
             System.out.println();
         }
     }
+
 
     public void move(int mapCenterX, int mapCenterY)
     {
@@ -134,27 +143,28 @@ public class MapField {
             } catch (Exception err) {
                 System.out.println("ERROR CODE FOR YOUR ASS!: " + err + "\n" + "PLEASE ENTER NUMBERS 1 | 2 | 3 | 4 TO CHOOSE DIRECTION!!!");
             }
-        }
-        moveInMap(mapCenterX, mapCenterY);
+        }/* __________________________________________ END OF MAP ___________________________________________________________ */
+        if ((mapCenterX == -1 || mapCenterX == this.mapSize + 1) || (mapCenterY == -1 || mapCenterY == this.mapSize + 1))
+        {
+            System.out.println("END OF MAP....YOU HAVE PASSED THIS LEVEL, NOW ON TO THE NEXT ONE\n");
+            System.out.println("Do you wish to continue playing? (y/n)");
+            String yn = input.nextLine();
+            try {
+                if(yn.equalsIgnoreCase("y") || yn.equalsIgnoreCase("n")) {
+                    if (yn.equalsIgnoreCase("y")) {
+                        playGame.endOfMap(playGame.getHero());
+                    } else {
+                        System.out.println("ksdjglkgasdlkjhsd");
+                        System.exit(0);
+                    }
+                }
+            }catch (Exception e){
+
+                System.out.println("Catch");
+            }
+        }/* __________________________________________ END OF MAP _____________________________________________________________ */
+        else
+            moveInMap(mapCenterX, mapCenterY);
     }
-
-
-    public void fight(){
-        difference = (hero.getFullStrength().getAttack() + hero.getFullStrength().getDefence() + hero.getFullStrength().getHitPoints()) -
-                (enemy.getFullStrength().getAttack() + enemy.getFullStrength().getDefence() + enemy.getFullStrength().getHitPoints());
-        if (difference > 0){
-            System.out.println("WIN");
-        }
-        else if(difference < 0){
-            System.out.println("LOSE."
-                    );
-        }
-        else if (difference == 0){}
-        System.out.println("DRAW");
-
-    }
-
-
-
 
 }

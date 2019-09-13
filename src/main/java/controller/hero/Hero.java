@@ -3,6 +3,7 @@ package controller.hero;
 import com.sun.istack.internal.NotNull;
 import model.Power;
 import model.artifacts.Artifact;
+import view.PlayGame;
 
 /* __________________________________________ LMBANGEL ________________________________________ */
 public class Hero {
@@ -15,7 +16,9 @@ public class Hero {
     private Power fullStrength;  /* ___ Attack + Weapon (attack) - Defence + Armor (defence) - HP + Helm (hitpoints) __ */
     private Artifact artifact;  /* _______________ Armor, Weapon, Helm ________________ */
     private static int heroId;
+    private PlayGame playGame;
 /* ____________________________________________________________________________________________ */
+
 
     public Hero(String heroName, String heroClass, int heroArmor, int heroWeapon, int heroHelm){
         this.heroName = heroName;
@@ -39,13 +42,7 @@ public class Hero {
 /* ____________________________________________________________________________________________ */
 
     public void fullStrength(){
-//        int attack;
-//        int defence;
-//        int hitpoints;
-//
-//        attack = ( this.power.getAttack() + this.artifact.getHeroWeapon().getPoints() );
-//        defence = ( this.power.getDefence() + this.artifact.getHeroArmor().getPoints() );
-//        hitpoints = ( this.power.getHitPoints() + this.artifact.getHeroHelm().getPoints() );
+
         this.fullStrength = new Power(( this.power.getAttack() + this.artifact.getHeroWeapon().getPoints() ),
                 ( this.power.getDefence() + this.artifact.getHeroArmor().getPoints() ),
                 ( this.power.getHitPoints() + this.artifact.getHeroHelm().getPoints() )
@@ -77,21 +74,24 @@ public class Hero {
 
     public int lvlUP(int heroLevel){
         this.heroLevel++;
+        if(this.heroLevel > 5){
+
+        }
         return this.heroLevel;
     }
 
-    public int xpUp(int heroLevel){
+    public void xpUp(int heroLevel){
+        heroLevel++;
         if(heroLevel == 2)
             this.heroExperience = 1000;
         else if(heroLevel == 3)
-            this.heroExperience = 1000;
+            this.heroExperience = 2000;
         else if(heroLevel == 4)
-            this.heroExperience = 1000;
+            this.heroExperience = 3000;
         else if (heroLevel == 5)
-            this.heroExperience = 1000;
+            this.heroExperience = 4000;
         else
              this.heroExperience = getHeroExperience();
-        return this.heroExperience;
+//        return this.heroExperience;
     }
-
 }

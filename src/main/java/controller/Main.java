@@ -9,10 +9,11 @@ public class Main{
 
     public static PrintWriter heroStore;
     private static Play play = new Play();
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
 
         try{
-            play.beginGame();
+            play.beginGame(0);
 
         }catch (Exception err){
             System.out.println(err);
