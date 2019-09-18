@@ -3,8 +3,11 @@ package model;
 /* __________________________________________ LMBANGEL ________________________________________ */
 public class Power {
 
+//    @NotNull
     private int attack;
+//    @NotNull
     private int defence;
+//    @NotNull
     private int hitPoints;
 
     public Power(int attack, int defence, int hitPoints){

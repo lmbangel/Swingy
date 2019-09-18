@@ -1,12 +1,15 @@
 package model.artifacts.armor;
 
-import model.artifacts.Artifact;
+import model.artifacts.helm.Limit;
 
 /* __________________________________________ LMBANGEL ________________________________________ */
 public class Armor{
 
-    private int points;
-    private int level;
+//   @NotNull
+   private int points;
+   @Limit(min=1, max=5)
+//   @NotNull
+   private int level;
     private String armor;
 
     public Armor(int points, int level, String armor){

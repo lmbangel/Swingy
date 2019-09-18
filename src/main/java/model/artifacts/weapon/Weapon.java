@@ -1,9 +1,14 @@
 package model.artifacts.weapon;
 
+import model.artifacts.helm.Limit;
+
 /* __________________________________________ LMBANGEL ________________________________________ */
 public class Weapon{
 
+//    @NotNull
     private int points;
+    @Limit
+//    @NotNull
     private int level;
     private String weapon;
 

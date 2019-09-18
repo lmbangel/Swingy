@@ -1,3 +1,4 @@
-qewewre§Civilian§0§0§47§10§45§10§Rock§10§2§1
-lkjhgfd§Ninja§0§0§126§21§101§32§Knife§15§25§1
-ddd§Civilian§0§0§47§10§45§10§Rock§10§2§1
+qwerty§Marine§0§1§20§17§70§2019/09/16:19
+New Hero§Hunter§0§1§20§10§70§2019/09/17:03
+qwerty§Marine§2450§2§88§85§138§2019/09/18:25
+New Hero§Hunter§0§1§20§10§70§2019/09/18:31

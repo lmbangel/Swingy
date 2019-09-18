@@ -1,7 +1,5 @@
 package model.artifacts;
 
-import com.sun.istack.internal.NotNull;
-import controller.hero.Hero;
 import model.artifacts.armor.Armor;
 import model.artifacts.armor.BreastPlate;
 import model.artifacts.armor.Shield;
@@ -16,9 +14,12 @@ import model.artifacts.weapon.Weapon;
 /* __________________________________________ LMBANGEL ________________________________________ */
 public class Artifact {
 
-    @NotNull private Armor heroArmor;
-    @NotNull private Weapon heroWeapon;
-    @NotNull private Helm heroHelm;
+//    @NotNull
+    private Armor heroArmor;
+//    @NotNull
+    private Weapon heroWeapon;
+//    @NotNull
+    private Helm heroHelm;
 
     public Artifact(String hero){
 

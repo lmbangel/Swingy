@@ -1,11 +1,11 @@
 package model.artifacts.helm;
 
-import model.artifacts.Artifact;
-
 /* __________________________________________ LMBANGEL ________________________________________ */
 public class Helm {
 
+//    @NotNull
     private int points;
+    @Limit(min = 1, max = 5)
     private int level;
     private String helm;
 

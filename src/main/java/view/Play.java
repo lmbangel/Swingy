@@ -1,6 +1,6 @@
 package view;
 
-import controller.enemy.Enemy;
+import controller.Main;
 import controller.hero.Hero;
 
 import java.util.Scanner;
@@ -17,21 +17,25 @@ public class Play {
     int heroWeapon;
     int heroHelm;
     public Hero hero;
+    public Hero player;
+    public Main main = new Main();
 
     public Play(){ }
 
-    public void beginGame(int lvl) {
-        if (lvl == 0) {
+    public void beginGame(int lvl)
+    {
+        if (lvl == 0)
+        {
             System.out.println("____________________________ WELCOME ____________________________\n" +
                     "\n             Enter 1. to START | Enter 2. to CONTINUE" +
                     "\n             _________________________________________\n" +
                     "\n1.START GAME - New character" +
                     "\n2.CONTINUE   - Use saved character" +
                     "\n"
-            );
-            /* ________________________________________________________________ */
+            );/* ___________________________________________________________________________________________________*/
             int choice = 0;
-            while (choice == 0) {
+            while (choice == 0)
+            {
                 try {
 
                     int play = Integer.parseInt(input.nextLine());
@@ -40,34 +44,51 @@ public class Play {
                     else
                         System.out.println("PLEASE ENTER NUMBERS 1 OR 2 TO CHOOSE BETWEEN START AND CONTINUE!!!");
                 } catch (Exception err) {
-                    System.out.println("ERROR CODE FOR YOUR ASS!: " + err + "\n" + "PLEASE ENTER NUMBERS 1 OR 2 TO CHOOSE BETWEEN START AND CONTINUE!!!");
+                    System.out.println("ERROR CODE FOR YOUR ASS!: " + err + "\n" +
+                            "PLEASE ENTER NUMBERS 1 OR 2 TO CHOOSE BETWEEN START AND CONTINUE!!!");
                 }
             }
             selectHero(choice);
         }
         displayStats(playGame.getHero());
         hero = playGame.getHero();
-//        playGame.updateValues(2000);
-//        displayStats(playGame.getHero());
         System.out.println("\n");
         mapField = new MapField(playGame);
         mapField.createMap(playGame.getHero().getHeroLevel());
         mapField.map();
-//        System.out.println("\n" + mapField.getMapSize() + "\n" + ((mapField.getMapSize()) / 2 + "\n"));
+        mapField.moveInMap(mapField.getMapSize()/2, mapField.getMapSize()/2);
+    }
+
+    public void beginContinue(Hero heroCont){
+
+        displayStats(heroCont);
+        hero = heroCont;
+        System.out.println("\n");
+        mapField = new MapField(playGame);
+        mapField.createMap(heroCont.getHeroLevel());
+        mapField.map();
         mapField.moveInMap(mapField.getMapSize()/2, mapField.getMapSize()/2);
     }
 
 
-
-    public void selectHero(int choice){
+    public void selectHero(int choice) {
         if (choice == 1)
             makeNewHero();
-        else
-            continueWithHero();
-
+        else {
+            try {
+                playGame = new PlayGame(this);
+                player = new Hero("dummy", "Hunter", 1, 1, 1);
+                System.out.println("SSSSSSSSSS");
+                playGame.continueWithHero(player, this);
+                System.out.println("afgafdg");
+            } catch (Exception err) {
+                System.out.println(err);
+            }
+        }
     }
 
-    public void makeNewHero(){
+    public void makeNewHero()
+    {
         System.out.println(
                 "                ENTER THE NAME OF YOUR HERO" +
                 "\n             ______________________________\n");
@@ -77,20 +98,12 @@ public class Play {
         heroArmor = chooseClass.armorChoice();
         heroWeapon = chooseClass.weaponChoice();
         heroHelm = chooseClass.helmChoice();
-
         playGame = new PlayGame(this);
         playGame.createNewHero(name, heroClass, heroArmor, heroWeapon, heroHelm );
-
     }
 
-    public void continueWithHero(){
-
-
-    }
-
-
-
-    public void displayStats(Hero hero){
+    public void displayStats(Hero hero)
+    {
         System.out.println("            HERO STATS\n_____________________________________"+
                 "\nName:        "+hero.getHeroName()+
                 "\nClass:       "+hero.getHeroClass()+
@@ -110,14 +123,5 @@ public class Play {
                 "\nhp:        "+hero.getFullStrength().getHitPoints()
         );
     }
-    public void displayEnemyStats(Enemy enemy){
-        System.out.println("            ENEMY STATS\n_____________________________________"+
-                "\nName:        "+enemy.getName()+
-                "\nAttack:       "+enemy.getFullStrength().getAttack()+
-                "\nDef:       "+enemy.getFullStrength().getDefence()+
-                "\nHP:          "+enemy.getFullStrength().getHitPoints()+
-                "\nXP:      "+enemy.getXp()
 
-        );
-    }
 }

@@ -1,6 +1,5 @@
 package controller.hero;
 
-import com.sun.istack.internal.NotNull;
 import model.Power;
 import model.artifacts.Artifact;
 import view.PlayGame;
@@ -8,15 +7,15 @@ import view.PlayGame;
 /* __________________________________________ LMBANGEL ________________________________________ */
 public class Hero {
 
-    @NotNull private String heroName;
-    @NotNull private String heroClass;
-    private int heroLevel;
-    private int heroExperience;
-    private Power power;        /* ___________ Attack, Defence, Hit points ____________ */
-    private Power fullStrength;  /* ___ Attack + Weapon (attack) - Defence + Armor (defence) - HP + Helm (hitpoints) __ */
-    private Artifact artifact;  /* _______________ Armor, Weapon, Helm ________________ */
-    private static int heroId;
-    private PlayGame playGame;
+    public String heroName;
+    public String heroClass;
+    public int heroLevel;
+    public int heroExperience;
+    public Power power;        /* ___________ Attack, Defence, Hit points ____________ */
+    public Power fullStrength;  /* ___ Attack + Weapon (attack) - Defence + Armor (defence) - HP + Helm (hitpoints) __ */
+    public Artifact artifact;  /* _______________ Armor, Weapon, Helm ________________ */
+    public static int heroId;
+    public  PlayGame playGame;
 /* ____________________________________________________________________________________________ */
 
 
@@ -51,9 +50,13 @@ public class Hero {
 /* ____________________________________________________________________________________________ */
 
     public String getHeroName(){ return this.heroName; }
+    public void setHeroName(String heroName){ this.heroName = heroName; }
     public String getHeroClass(){ return  this.heroClass; }
+    public void setHeroClass(String heroClass){ this.heroClass = heroClass; }
     public int getHeroLevel(){ return this.heroLevel; }
+    public void setHeroLevel(int heroLevel){ this.heroLevel = heroLevel;}
     public int getHeroExperience(){ return this.heroExperience; }
+    public void setHeroExperience(int heroExperience){ this.heroExperience = heroExperience; }
     public Power getPower(){ return this.power; }
 
     public void setPower(int points){
@@ -75,7 +78,7 @@ public class Hero {
     public int lvlUP(int heroLevel){
         this.heroLevel++;
         if(this.heroLevel > 5){
-
+            playGame.endGame();
         }
         return this.heroLevel;
     }
@@ -83,13 +86,13 @@ public class Hero {
     public void xpUp(int heroLevel){
         heroLevel++;
         if(heroLevel == 2)
-            this.heroExperience = 1000;
+            this.heroExperience = 2450;
         else if(heroLevel == 3)
-            this.heroExperience = 2000;
+            this.heroExperience = 4800;
         else if(heroLevel == 4)
-            this.heroExperience = 3000;
+            this.heroExperience = 8050;
         else if (heroLevel == 5)
-            this.heroExperience = 4000;
+            this.heroExperience = 12200;
         else
              this.heroExperience = getHeroExperience();
 //        return this.heroExperience;

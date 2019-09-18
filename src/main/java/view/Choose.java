@@ -1,5 +1,7 @@
 package view;
 
+import model.artifacts.helm.Limit;
+
 import java.util.Scanner;
 
 
@@ -32,6 +34,7 @@ public class Choose {
         {
             try {
 
+//                @NotNull
                 int heroClass = Integer.parseInt(input.nextLine());
                 if ( heroClass == 1 || heroClass == 2 || heroClass == 3 )
                     choice = heroClass;
@@ -60,6 +63,7 @@ public class Choose {
         while (choice == 0)
         {
             try {
+//                @NotNull
                 int heroArmor = Integer.parseInt(input.nextLine());
                 if ( heroArmor == 1 || heroArmor == 2 )
                     choice = heroArmor;
@@ -88,6 +92,7 @@ public class Choose {
         while (choice == 0)
         {
             try {
+//                @NotNull
                 int heroWeapon = Integer.parseInt(input.nextLine());
                 if ( heroWeapon == 1 || heroWeapon == 2 || heroWeapon == 3 )
                     choice = heroWeapon;
@@ -115,6 +120,8 @@ public class Choose {
         while (choice == 0)
         {
             try {
+//                @NotNull
+                @Limit(max = 2, message = "PLEASE ENTER NUMBERS 1 OR 2 TO CHOOSE HELM!!!")
                 int heroHelm = Integer.parseInt(input.nextLine());
                 if ( heroHelm == 1 || heroHelm == 2 )
                     choice = heroHelm;
